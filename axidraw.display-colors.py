@@ -2,7 +2,7 @@
 import argparse
 from xml.etree import ElementTree
 
-from colors import print_color
+from colors import print_html_color
 from colors import sort_html_colors
 
 
@@ -13,7 +13,7 @@ def print_colors(colors):
     :return:
     """
     for color in colors:
-        print_color(color)
+        print_html_color(color)
 
 
 def get_colors(svg_file):

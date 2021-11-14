@@ -182,17 +182,26 @@ def get_html_color_name_from_rgb(color, colors=None):
     return min_colors[min(min_colors.keys())]
 
 
-def print_color(color_name):
+def print_rgb_color(color, message=None):
+    print('\x1b[48;2;{};{};{}m\x1b[38;2;{};{};{}m{}\x1b[0m'.format(
+        color.r, color.g, color.b,
+        color.r, color.g, color.b,
+        ' ' * 10
+    ), message)
+
+
+def print_html_color(color_name):
     """
     Prints a square on the console with the given color on background
     :param color_name: the name of the color (ex: gainsboro)
     """
     color = COLORS[color_name]
-    print('\x1b[48;2;{};{};{}m\x1b[38;2;{};{};{}m{}\x1b[0m'.format(
-        color.r, color.g, color.b,
-        color.r, color.g, color.b,
-        ' ' * 10
-    ), color_name)
+    print_rgb_color(color, color_name)
+
+
+def print_hex_color(hex_color):
+    rgb = hex_to_rgb(hex_color)
+    print_rgb_color(rgb_tuple_to_rgb_color(rgb), hex_color)
 
 
 def get_html_color_name_from_hex(hex_color, colors=None):
@@ -240,6 +249,10 @@ def hex_to_rgb(hex_color):
     hex_color = [hex_color[i:i + 2] for i in range(0, len(hex_color), 2)]
     hex_color = [int(hex_color[i], 16) for i in range(len(hex_color))]
     return tuple(hex_color)
+
+
+def rgb_tuple_to_rgb_color(rgb):
+    return Color(rgb[0], rgb[1], rgb[2])
 
 
 def rgb_to_hex(rgb_color):
