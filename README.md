@@ -1,0 +1,1 @@
+# svg.group-by-color
