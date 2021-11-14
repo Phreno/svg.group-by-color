@@ -70,6 +70,16 @@ def save_svg(root, output):
     tree.write(output)
 
 
+def get_colors_from_args(colors):
+    if colors is None:
+        return COLORS
+    else:
+        buffer = {}
+        for color in colors:
+            buffer[color] = COLORS[color]
+        return buffer
+
+
 def parse_args():
     """
     :return: the args from the command line
@@ -79,28 +89,23 @@ def parse_args():
     parser.add_argument('--model', default='stroke', help='stroke or fill')
     parser.add_argument('--output', default='out.svg', help='output file')
     parser.add_argument('--colors', nargs='+', default=None, help='colors to apply')
-    return parser.parse_args()
+    args = parser.parse_args()
+    return {
+        'svg_file': args.svg_file,
+        'model': args.model,
+        'output': args.output,
+        'colors': get_colors_from_args(args.colors)
+    }
 
 
 def main():
     """
     Gets the job done
     """
-    args = parse_args()
-    svg_file = args.svg_file
-    model = args.model
-    colors = args.colors
-    if colors is None:
-        colors = COLORS
-    else:
-        buffer = {}
-        for color in colors:
-            buffer[color] = COLORS[color]
-        colors = buffer
-
+    svg_file, model, colors, output = parse_args()
     dictionary = get_color_dict(svg_file, model, colors)
     root = render_svg(dictionary)
-    save_svg(root, args.output)
+    save_svg(root, output)
 
 
 if __name__ == '__main__':
