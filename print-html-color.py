@@ -11,7 +11,7 @@ def parse_args():
     import argparse
     parser = argparse.ArgumentParser(description='Print html colors on the console')
     parser.add_argument('color', nargs='?', default='white', help='Color to print')
-    parser.add_argument('-l', '--list', action='store_true', help='List all available hex_colors')
+    parser.add_argument('-l', '--list', action='store_true', help='List all available colors')
     return parser.parse_args()
 
 

@@ -10,7 +10,7 @@ from colors import html_color_to_hex
 
 def get_color_dict(svg_file, model, colors):
     """
-    Creates a dictionary mapping based on available hex_colors in the svg file.
+    Creates a dictionary mapping based on available colors in the svg file.
     Colors are processed on the stroke attribute or the fill attribute.
     :param colors: the available colors to process
     :param svg_file: the file to process

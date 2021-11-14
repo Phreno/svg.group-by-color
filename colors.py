@@ -200,7 +200,7 @@ def print_html_color(color_name):
 
 
 def print_hex_color(hex_color):
-    rgb = hex_to_rgb(hex_color)
+    rgb = hex_to_rgb_tuple(hex_color)
     print_rgb_color(rgb_tuple_to_rgb_color(rgb), hex_color)
 
 
@@ -220,26 +220,26 @@ def get_html_color_name_from_hex(hex_color, colors=None):
         return get_html_color_name_from_rgb(Color(r, g, b), colors)
 
 
-def sort_hex_colors(hex_colors):
+def sort_hex_colors(colors):
     """
-    :hex_colors: a list of string that represents hex hex_colors (ex: "#123456")
+    :colors: a list of string that represents hex colors (ex: "#123456")
     :return: the same list ordered in a way that represent a gradient
     """
-    hex_colors = [hex_to_rgb(color) for color in hex_colors]
-    hex_colors.sort(key=lambda rgb: (rgb[0], rgb[1], rgb[2]))
-    return [rgb_to_hex(color) for color in hex_colors]
+    colors = [hex_to_rgb_tuple(color) for color in colors]  # switching to rgb colors
+    colors.sort(key=lambda rgb: (rgb[0], rgb[1], rgb[2]))
+    return [rgb_to_hex(color) for color in colors]  # restore hex colors
 
 
 def sort_html_colors(colors):
     """
-    :param colors: the list of strings that represent html hex_colors (ex: [gainsboro, red, aliceblue])
+    :param colors: the list of strings that represent html colors (ex: [gainsboro, red, aliceblue])
     :return: the color sorted in a way that represent a gradient
     """
     hex_colors_sorted = sort_hex_colors(map(html_color_to_hex, colors))
     return map(get_html_color_name_from_hex, hex_colors_sorted)
 
 
-def hex_to_rgb(hex_color):
+def hex_to_rgb_tuple(hex_color):
     """
     :hex_color: a string that represents a hex color (ex: "#123456")
     :return: a tuple of 3 integers that represents the rgb color
