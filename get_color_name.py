@@ -4,7 +4,7 @@ import re
 import sys
 
 from colors import Color
-from colors import get_color_name_from_rgb
+from colors import get_html_color_name_from_rgb
 
 
 def main():
@@ -17,7 +17,7 @@ def main():
         r = int(color[0:2], 16)
         g = int(color[2:4], 16)
         b = int(color[4:6], 16)
-        print(get_color_name_from_rgb(Color(r, g, b)))
+        print(get_html_color_name_from_rgb(Color(r, g, b)))
     else:
         print('Invalid color')
 

@@ -9,9 +9,9 @@ def parse_args():
     Parse command line arguments
     """
     import argparse
-    parser = argparse.ArgumentParser(description='Print colors on the console')
+    parser = argparse.ArgumentParser(description='Print hex_colors on the console')
     parser.add_argument('color', nargs='?', default='white', help='Color to print')
-    parser.add_argument('-l', '--list', action='store_true', help='List all available colors')
+    parser.add_argument('-l', '--list', action='store_true', help='List all available hex_colors')
     return parser.parse_args()
 
 

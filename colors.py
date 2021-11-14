@@ -155,7 +155,7 @@ COLORS = {
 }
 
 
-def color_to_hex(color_name):
+def html_color_to_hex(color_name):
     """
     :param color_name: the name of the color
     :return: the hex representation of the color
@@ -163,7 +163,7 @@ def color_to_hex(color_name):
     return '#{:02x}{:02x}{:02x}'.format(*COLORS[color_name])
 
 
-def get_color_name_from_rgb(color):
+def get_html_color_name_from_rgb(color):
     """
     :param color: a RGB `color` code
     :return: the nearest html color name.
@@ -202,4 +202,48 @@ def get_html_color_name_from_hex(hex_color):
         r = int(hex_color[0:2], 16)
         g = int(hex_color[2:4], 16)
         b = int(hex_color[4:6], 16)
-        return get_color_name_from_rgb(Color(r, g, b))
+        return get_html_color_name_from_rgb(Color(r, g, b))
+
+
+def sort_hex_colors(hex_colors):
+    """
+    :hex_colors: a list of string that represents hex hex_colors (ex: "#123456")
+    :return: the same list ordered in a way that represent a gradient
+    """
+    hex_colors = [hex_to_rgb(color) for color in hex_colors]
+    hex_colors.sort(key=lambda rgb: (rgb[0], rgb[1], rgb[2]))
+    return [rgb_to_hex(color) for color in hex_colors]
+
+
+def sort_html_colors(colors):
+    """
+    :param colors: the list of strings that represent html hex_colors (ex: [gainsboro, red, aliceblue])
+    :return: the color sorted in a way that represent a gradient
+    """
+    hex_colors_sorted = sort_hex_colors(map(html_color_to_hex, colors))
+    return map(get_html_color_name_from_hex, hex_colors_sorted)
+
+
+def hex_to_rgb(hex_color):
+    """
+    :hex_color: a string that represents a hex color (ex: "#123456")
+    :return: a tuple of 3 integers that represents the rgb color
+    """
+    hex_color = str(hex_color)
+    hex_color = hex_color[1:]
+    hex_color = [hex_color[i:i + 2] for i in range(0, len(hex_color), 2)]
+    hex_color = [int(hex_color[i], 16) for i in range(len(hex_color))]
+    return tuple(hex_color)
+
+
+def rgb_to_hex(rgb_color):
+    """
+    :rgb_color: a tuple of 3 integers that represents the rgb color
+    :return: a string that represents a hex color (ex: "#123456")
+    """
+    rgb_color = [str(hex(rgb_color[i])) for i in range(len(rgb_color))]
+    rgb_color = [rgb_color[i][2:] for i in range(len(rgb_color))]
+    rgb_color = [rgb_color[i] if len(rgb_color[i]) == 2 else '0' + rgb_color[i] for i in range(len(rgb_color))]
+    rgb_color = ''.join(rgb_color)
+    rgb_color = '#' + rgb_color
+    return rgb_color
