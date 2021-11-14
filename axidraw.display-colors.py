@@ -7,11 +7,21 @@ from colors import sort_html_colors
 
 
 def print_colors(colors):
+    """
+    Print the specified colors to stdout.
+    :param colors: the colors to print
+    :return:
+    """
     for color in colors:
         print_color(color)
 
 
 def get_colors(svg_file):
+    """
+    Extract the colors from an svg file.
+    :param svg_file: the svg_file to extract the colors from.
+    :return: a list of colors
+    """
     tree = ElementTree.parse(svg_file)
     root = tree.getroot()
     colors = []
@@ -23,6 +33,10 @@ def get_colors(svg_file):
 
 
 def parse_args():
+    """
+    parse the arguments from the command line.
+    :return:
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('svg_file', help='svg file path')
     return parser.parse_args()

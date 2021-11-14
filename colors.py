@@ -163,14 +163,17 @@ def html_color_to_hex(color_name):
     return '#{:02x}{:02x}{:02x}'.format(*COLORS[color_name])
 
 
-def get_html_color_name_from_rgb(color):
+def get_html_color_name_from_rgb(color, colors=None):
     """
+    :param colors: the list of available colors
     :param color: a RGB `color` code
     :return: the nearest html color name.
     """
+    if colors is None:
+        colors = COLORS
     r, g, b = color
     min_colors = {}
-    for key, value in COLORS.items():
+    for key, value in colors.items():
         r_c, g_c, b_c = value
         rd = (r_c - r) ** 2
         gd = (g_c - g) ** 2
@@ -192,17 +195,20 @@ def print_color(color_name):
     ), color_name)
 
 
-def get_html_color_name_from_hex(hex_color):
+def get_html_color_name_from_hex(hex_color, colors=None):
     """
+    :param colors: the list of available colors.
     :param hex_color: the color in hex format (ex: #123456)
     :return: the nearest html color name from a hex color
     """
+    if colors is None:
+        colors = COLORS
     if re.match(r'^#?[0-9a-f]{6}$', hex_color, re.IGNORECASE):
         hex_color = hex_color.lstrip('#')
         r = int(hex_color[0:2], 16)
         g = int(hex_color[2:4], 16)
         b = int(hex_color[4:6], 16)
-        return get_html_color_name_from_rgb(Color(r, g, b))
+        return get_html_color_name_from_rgb(Color(r, g, b), colors)
 
 
 def sort_hex_colors(hex_colors):
