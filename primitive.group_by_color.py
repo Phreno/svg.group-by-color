@@ -15,7 +15,6 @@ def get_color_dict(svg_file, colors):
     Colors are processed on the stroke attribute or the fill attribute.
     :param colors: the available colors to process
     :param svg_file: the file to process
-    :param model: "stroke" or "fill"
     :return: a dictionary mapping a color name to a svg group element.
     """
     tree = ElementTree.parse(svg_file)
@@ -30,7 +29,6 @@ def next_step(node, dictionary, colors):
     :param colors:  the available colors to process
     :param dictionary: the dictionary mapping a color name to a svg group element.
     :param node: current node in the tree
-    :param model: "stroke" or "fill"
     :return: the current node's dictionary
     """
     for child in node:
@@ -51,7 +49,6 @@ def add_to_dict(child, colors, dictionary):
             color = get_html_color_name_from_hex(child.attrib["stroke"], colors)
             child.attrib["stroke"] = html_color_to_hex(color)
             dictionary[color].append(child)
-
 
 
 def get_colors_from_args(colors):

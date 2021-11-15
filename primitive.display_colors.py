@@ -4,6 +4,8 @@ from xml.etree import ElementTree
 
 from color_toolbox import print_html_color
 from color_toolbox import sort_html_colors
+from primitive_toolbox import GROUP_TAG
+from primitive_toolbox import ATTRIB_LABEL
 
 
 def print_colors(colors):
@@ -13,7 +15,7 @@ def print_colors(colors):
     :return:
     """
     for color in colors:
-        print_html_color(color)
+        print_html_color(color, count_colors(args.svg_file, color))
 
 
 def get_colors(svg_file):
@@ -26,10 +28,20 @@ def get_colors(svg_file):
     root = tree.getroot()
     colors = []
     for child in root:
-        if child.tag == '{http://www.w3.org/2000/svg}g':
-            color = child.attrib['{http://www.inkscape.org/namespaces/inkscape}label']
+        if child.tag == GROUP_TAG:
+            color = child.attrib[ATTRIB_LABEL]
             colors.append(color)
     return colors
+
+
+def count_colors(svg_file, color):
+    tree = ElementTree.parse(svg_file)
+    root = tree.getroot()
+    for child in root:
+        if child.tag == GROUP_TAG and color == child.attrib[ATTRIB_LABEL]:
+            return len(child)
+        else:
+            continue
 
 
 def parse_args():
@@ -42,12 +54,14 @@ def parse_args():
     return parser.parse_args()
 
 
+args = parse_args()
+
+
 def main():
     """
     The main function
     :return:
     """
-    args = parse_args()
     colors = get_colors(args.svg_file)
     print_colors(sort_html_colors(colors))
 

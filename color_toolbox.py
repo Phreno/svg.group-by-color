@@ -190,13 +190,15 @@ def print_rgb_color(color, message=None):
     ), message)
 
 
-def print_html_color(color_name):
+def print_html_color(color_name, message=None):
     """
     Prints a square on the console with the given color on background
+    :param message: complete the displayed label with a custom message
     :param color_name: the name of the color (ex: gainsboro)
     """
     color = COLORS[color_name]
-    print_rgb_color(color, color_name)
+    label = ('(' + str(message) + ')').ljust(7) + color_name.ljust(26) + str(color).ljust(30)
+    print_rgb_color(color, label)
 
 
 def print_hex_color(hex_color):
