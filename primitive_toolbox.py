@@ -49,7 +49,13 @@ def colorize_group(group, color):
 def colorize_child(child, color):
     print('colorizing child %s with color %s' % (child, color))
     color = html_color_to_hex(color)
-    if ATTRIB_FILL in child.attrib and child.attrib[ATTRIB_FILL] != 'none':
+    if is_valid_attrib_on(child, ATTRIB_FILL):
         child.attrib[ATTRIB_FILL] = color
-    elif ATTRIB_STROKE in child.attrib and child.attrib[ATTRIB_STROKE] != 'none':
+    elif is_valid_attrib_on(child, ATTRIB_STROKE):
         child.attrib[ATTRIB_STROKE] = color
+
+
+def is_valid_attrib_on(child, attribute):
+    attribute_is_valid = attribute in child.attrib and child.attrib[attribute] != 'none'
+    is_background = 'x' in child.attrib and 'y' in child.attrib and child.attrib['x'] == child.attrib['y'] == '-1'
+    return attribute_is_valid and not is_background

@@ -7,7 +7,7 @@ from collections import defaultdict
 from color_toolbox import get_html_color_name_from_hex, COLORS
 from color_toolbox import html_color_to_hex
 from primitive_toolbox import GROUP_TAG, save_svg_root, render_svg_from_color_child_dict, ATTRIB_FILL, ATTRIB_STROKE, \
-    ATTRIB_LABEL
+    is_valid_attrib_on
 
 
 def get_color_dict(svg, colors):
@@ -51,12 +51,6 @@ def update_child_and_append_to_dict(child, colors, dictionary, attribute):
     color = get_html_color_name_from_hex(child.attrib[attribute], colors)
     child.attrib[attribute] = html_color_to_hex(color)
     dictionary[color].append(child)
-
-
-def is_valid_attrib_on(child, attribute):
-    attribute_is_valid = attribute in child.attrib and child.attrib[attribute] != 'none'
-    is_background = 'x' in child.attrib and 'y' in child.attrib and child.attrib['x'] == child.attrib['y'] == '0'
-    return attribute_is_valid and not is_background
 
 
 def get_colors_from_args(colors):
