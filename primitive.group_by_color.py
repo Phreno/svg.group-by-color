@@ -9,7 +9,7 @@ from color_toolbox import html_color_to_hex
 from primitive_toolbox import GROUP_TAG, save_svg_root, render_svg_from_color_child_dict
 
 
-def get_color_dict(svg_file, model, colors):
+def get_color_dict(svg_file, colors):
     """
     Creates a dictionary mapping based on available colors in the svg file.
     Colors are processed on the stroke attribute or the fill attribute.
@@ -21,10 +21,10 @@ def get_color_dict(svg_file, model, colors):
     tree = ElementTree.parse(svg_file)
     root = tree.getroot()
     dictionary = defaultdict(list)
-    return next_step(root, model, dictionary, colors)
+    return next_step(root, dictionary, colors)
 
 
-def next_step(node, model, dictionary, colors):
+def next_step(node, dictionary, colors):
     """
     Do the `get_color_dict` recursion
     :param colors:  the available colors to process
@@ -35,13 +35,23 @@ def next_step(node, model, dictionary, colors):
     """
     for child in node:
         if child.tag == GROUP_TAG:
-            next_step(child, model, dictionary, colors)
+            next_step(child, dictionary, colors)
         else:
-            if model in child.attrib:
-                color = get_html_color_name_from_hex(child.attrib[model], colors)
-                child.attrib[model] = html_color_to_hex(color)
-                dictionary[color].append(child)
+            add_to_dict(child, colors, dictionary)
     return dictionary
+
+
+def add_to_dict(child, colors, dictionary):
+    if "fill" in child.attrib:
+        color = get_html_color_name_from_hex(child.attrib["fill"], colors)
+        child.attrib["fill"] = html_color_to_hex(color)
+        dictionary[color].append(child)
+    else:
+        if "stroke" in child.attrib:
+            color = get_html_color_name_from_hex(child.attrib["stroke"], colors)
+            child.attrib["stroke"] = html_color_to_hex(color)
+            dictionary[color].append(child)
+
 
 
 def get_colors_from_args(colors):
@@ -76,8 +86,12 @@ def main():
     """
     Gets the job done
     """
-    svg_file, model, colors, output = parse_args()
-    dictionary = get_color_dict(svg_file, model, colors)
+    args = parse_args()
+    svg_file = args['svg_file']
+    colors = args['colors']
+    output = args['output']
+
+    dictionary = get_color_dict(svg_file, colors)
     root = render_svg_from_color_child_dict(dictionary)
     save_svg_root(root, output)
 
