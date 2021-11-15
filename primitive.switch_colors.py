@@ -2,8 +2,7 @@
 import argparse
 from xml.etree import ElementTree
 
-from color_toolbox import html_color_to_hex
-from primitive_toolbox import GROUP_TAG, ATTRIB_LABEL, ATTRIB_STROKE, ATTRIB_FILL, save_svg_root
+from primitive_toolbox import GROUP_TAG, ATTRIB_LABEL, save_svg_root, colorize_group
 
 
 def replace_colors(svg_file, old, new):
@@ -20,20 +19,6 @@ def next_step(node, old, new):
                 colorize_group(child, new)
             else:
                 next_step(child, old, new)
-
-
-def colorize_group(group, color):
-    group.attrib[ATTRIB_LABEL] = color
-    for item in group:
-        colorize_child(item, color)
-
-
-def colorize_child(child, color):
-    color = html_color_to_hex(color)
-    if child.attrib[ATTRIB_STROKE] != "none":
-        child.attrib[ATTRIB_STROKE] = color
-    if child.attrib[ATTRIB_FILL] != "none":
-        child.attrib[ATTRIB_FILL] = color
 
 
 def parse_args():
