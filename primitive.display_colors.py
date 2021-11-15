@@ -54,9 +54,6 @@ def parse_args():
     return parser.parse_args()
 
 
-args = parse_args()
-
-
 def main():
     """
     The main function
@@ -66,5 +63,5 @@ def main():
     print_colors(sort_html_colors(colors))
 
 
-if __name__ == '__main__':
-    main()
+args = parse_args()
+main()

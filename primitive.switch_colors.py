@@ -15,10 +15,12 @@ def replace_colors(svg_file, old, new):
 def next_step(node, old, new):
     for child in node:
         if child.tag == GROUP_TAG:
-            if child.attrib[ATTRIB_LABEL] == old:
+            if ATTRIB_LABEL in child.attrib and child.attrib[ATTRIB_LABEL] == old:
                 colorize_group(child, new)
             else:
                 next_step(child, old, new)
+        else:
+            next_step(child, old, new)
 
 
 def parse_args():
@@ -27,17 +29,11 @@ def parse_args():
     :return:
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('svg_file', help='svg file path')
-    parser.add_argument('old_color', help='the color to replace')
-    parser.add_argument('new_color', help='the color color replacing the old one')
+    parser.add_argument('svg', help='svg file path')
+    parser.add_argument('old', help='the color to replace')
+    parser.add_argument('new', help='the color color replacing the old one')
     parser.add_argument('--output', default='output.svg', help='output file path')
-    args = parser.parse_args()
-    return {
-        'svg_file': args.svg_file,
-        'old': args.old_color,
-        'color': args.new_color,
-        'output': args.output
-    }
+    return parser.parse_args()
 
 
 def main():
@@ -45,18 +41,9 @@ def main():
     The main function
     :return:
     """
-    result = parse_args()
-    # TODO: `svg_file, old, color, output = parse_args()`
-    # Some weird black magic runs to args init
-    # can't retrieve args the proper way
-    # needs to come back later with some caffeine
-    svg_file = result['svg_file']
-    old = result['old']
-    new = result['color']
-    output = result['output']
-    root = replace_colors(svg_file, old, new)
-    save_svg_root(root, output)
+    root = replace_colors(args.svg, args.old, args.new)
+    save_svg_root(root, args.output)
 
 
-if __name__ == '__main__':
-    main()
+args = parse_args()
+main()

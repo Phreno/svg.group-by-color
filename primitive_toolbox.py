@@ -40,14 +40,16 @@ def render_svg_from_color_child_dict(dictionary):
 
 
 def colorize_group(group, color):
+    print('colorizing group %s with color %s' % (group, color))
     group.attrib[ATTRIB_LABEL] = color
     for item in group:
         colorize_child(item, color)
 
 
 def colorize_child(child, color):
+    print('colorizing child %s with color %s' % (child, color))
     color = html_color_to_hex(color)
-    if child.attrib[ATTRIB_STROKE] != "none":
-        child.attrib[ATTRIB_STROKE] = color
-    if child.attrib[ATTRIB_FILL] != "none":
+    if ATTRIB_FILL in child.attrib and child.attrib[ATTRIB_FILL] != 'none':
         child.attrib[ATTRIB_FILL] = color
+    elif ATTRIB_STROKE in child.attrib and child.attrib[ATTRIB_STROKE] != 'none':
+        child.attrib[ATTRIB_STROKE] = color

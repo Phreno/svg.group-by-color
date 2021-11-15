@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from color_toolbox import COLORS
+from color_toolbox import COLORS, sort_html_colors
 from color_toolbox import print_html_color
 
 
@@ -21,8 +21,8 @@ def main():
     """
     args = parse_args()
     if args.list:
-        for color in COLORS:
-            print(color)
+        for color in sort_html_colors(COLORS.keys()):
+            print_html_color(color)
     else:
         print_html_color(args.color)
 
