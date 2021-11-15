@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from colors import print_hex_color
+from color_toolbox import print_hex_color
 
 
 def parse_args():

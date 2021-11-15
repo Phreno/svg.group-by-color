@@ -2,10 +2,11 @@
 
 import argparse
 import xml.etree.ElementTree as ElementTree
-
 from collections import defaultdict
-from colors import get_html_color_name_from_hex, COLORS
-from colors import html_color_to_hex
+
+from color_toolbox import get_html_color_name_from_hex, COLORS
+from color_toolbox import html_color_to_hex
+from primitive_toolbox import GROUP_TAG, save_svg_root, render_svg_from_color_child_dict
 
 
 def get_color_dict(svg_file, model, colors):
@@ -15,7 +16,7 @@ def get_color_dict(svg_file, model, colors):
     :param colors: the available colors to process
     :param svg_file: the file to process
     :param model: "stroke" or "fill"
-    :return: a dictionary mapping a color name to a svg child element.
+    :return: a dictionary mapping a color name to a svg group element.
     """
     tree = ElementTree.parse(svg_file)
     root = tree.getroot()
@@ -27,13 +28,13 @@ def next_step(node, model, dictionary, colors):
     """
     Do the `get_color_dict` recursion
     :param colors:  the available colors to process
-    :param dictionary: the dictionary mapping a color name to a svg child element.
+    :param dictionary: the dictionary mapping a color name to a svg group element.
     :param node: current node in the tree
     :param model: "stroke" or "fill"
     :return: the current node's dictionary
     """
     for child in node:
-        if child.tag == '{http://www.w3.org/2000/svg}g':
+        if child.tag == GROUP_TAG:
             next_step(child, model, dictionary, colors)
         else:
             if model in child.attrib:
@@ -41,33 +42,6 @@ def next_step(node, model, dictionary, colors):
                 child.attrib[model] = html_color_to_hex(color)
                 dictionary[color].append(child)
     return dictionary
-
-
-def render_svg(dictionary):
-    """
-    Renders the output with objects within simplified html color groups
-    """
-    root = ElementTree.Element('svg')
-    root.set('xmlns', 'http://www.w3.org/2000/svg')
-    root.set('xmlns:xlink', 'http://www.w3.org/1999/xlink')
-
-    for color, children in dictionary.items():
-        group = ElementTree.Element('g')
-        for child in children:
-            group.append(child)
-        group.attrib['{http://www.inkscape.org/namespaces/inkscape}label'] = color
-        root.append(group)
-    return root
-
-
-def save_svg(root, output):
-    """
-    Writes the svg over the specified output
-    :param root: the svg
-    :param output: the output path
-    """
-    tree = ElementTree.ElementTree(root)
-    tree.write(output)
 
 
 def get_colors_from_args(colors):
@@ -104,8 +78,8 @@ def main():
     """
     svg_file, model, colors, output = parse_args()
     dictionary = get_color_dict(svg_file, model, colors)
-    root = render_svg(dictionary)
-    save_svg(root, output)
+    root = render_svg_from_color_child_dict(dictionary)
+    save_svg_root(root, output)
 
 
 if __name__ == '__main__':

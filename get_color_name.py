@@ -3,8 +3,8 @@
 import re
 import sys
 
-from colors import Color
-from colors import get_html_color_name_from_rgb
+from color_toolbox import Color
+from color_toolbox import get_html_color_name_from_rgb
 
 
 def main():

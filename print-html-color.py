@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
-from colors import COLORS
-from colors import print_html_color
+from color_toolbox import COLORS
+from color_toolbox import print_html_color
 
 
 def parse_args():

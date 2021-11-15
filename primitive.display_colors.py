@@ -2,8 +2,8 @@
 import argparse
 from xml.etree import ElementTree
 
-from colors import print_html_color
-from colors import sort_html_colors
+from color_toolbox import print_html_color
+from color_toolbox import sort_html_colors
 
 
 def print_colors(colors):
