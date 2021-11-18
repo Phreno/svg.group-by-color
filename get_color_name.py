@@ -4,7 +4,7 @@ import re
 import sys
 
 from color_toolbox import Color
-from color_toolbox import get_html_color_name_from_rgb
+from color_toolbox import color_to_nearest_color_name
 
 
 def main():
@@ -17,7 +17,7 @@ def main():
         r = int(color[0:2], 16)
         g = int(color[2:4], 16)
         b = int(color[4:6], 16)
-        print(get_html_color_name_from_rgb(Color(r, g, b)))
+        print(color_to_nearest_color_name(Color(r, g, b)))
     else:
         print('Invalid color')
 

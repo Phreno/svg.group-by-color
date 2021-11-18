@@ -1,6 +1,6 @@
 from xml.etree import ElementTree
 
-from color_toolbox import html_color_to_hex
+from color_toolbox import color_to_hex
 
 GROUP_TAG = '{http://www.w3.org/2000/svg}g'
 ATTRIB_LABEL = '{http://www.inkscape.org/namespaces/inkscape}label'
@@ -46,7 +46,7 @@ def colorize_group(group, color):
 
 
 def colorize_child(child, color):
-    color = html_color_to_hex(color)
+    color = color_to_hex(color)
     if is_valid_attrib_on(child, ATTRIB_FILL):
         child.attrib[ATTRIB_FILL] = color
     elif is_valid_attrib_on(child, ATTRIB_STROKE):

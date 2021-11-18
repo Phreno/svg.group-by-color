@@ -2,7 +2,7 @@
 import argparse
 from xml.etree import ElementTree
 
-from color_toolbox import html_color_to_hex
+from color_toolbox import color_to_hex
 from primitive_toolbox import GROUP_TAG, ATTRIB_LABEL, save_svg_root, is_valid_attrib_on, ATTRIB_STROKE
 
 
@@ -21,7 +21,7 @@ def next_step(node, color, thickness):
     for child in node:
         if child.tag == GROUP_TAG:
             next_step(child, color, thickness)
-        elif is_valid_attrib_on(child, 'stroke-width') and is_valid_attrib_on(child, ATTRIB_STROKE) and html_color_to_hex(color) == child.attrib[ATTRIB_STROKE]:
+        elif is_valid_attrib_on(child, 'stroke-width') and is_valid_attrib_on(child, ATTRIB_STROKE) and color_to_hex(color) == child.attrib[ATTRIB_STROKE]:
             child.attrib['stroke-width'] = thickness
 
 

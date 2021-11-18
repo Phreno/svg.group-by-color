@@ -4,8 +4,8 @@ import argparse
 import xml.etree.ElementTree as ElementTree
 from collections import defaultdict
 
-from color_toolbox import get_html_color_name_from_hex, COLORS
-from color_toolbox import html_color_to_hex
+from color_toolbox import hex_to_nearest_color_name, COLORS
+from color_toolbox import color_to_hex
 from primitive_toolbox import GROUP_TAG, save_svg_root, render_svg_from_color_child_dict, ATTRIB_FILL, ATTRIB_STROKE, \
     is_valid_attrib_on
 
@@ -48,8 +48,8 @@ def add_to_dict(child, colors, dictionary):
 
 
 def update_child_and_append_to_dict(child, colors, dictionary, attribute):
-    color = get_html_color_name_from_hex(child.attrib[attribute], colors)
-    child.attrib[attribute] = html_color_to_hex(color)
+    color = hex_to_nearest_color_name(child.attrib[attribute], colors)
+    child.attrib[attribute] = color_to_hex(color)
     dictionary[color].append(child)
 
 
