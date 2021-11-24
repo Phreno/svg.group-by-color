@@ -4,7 +4,7 @@ from geometry.bezier_curve import BezierCurve
 from geometry.point import Point
 
 
-def split_curve(curve, segments):
+def split_curve(curve, segments=10) -> [BezierCurve]:
     points = curve.get_points_as_tuples()
     return [BezierCurve(Point(points[i][0], points[i][1]),
                         Point((points[i][0] + points[i + 1][0]) / 2, (points[i][1] + points[i + 1][1]) / 2),
