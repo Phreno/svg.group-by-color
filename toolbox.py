@@ -85,8 +85,8 @@ def render_stroke_from_points(points, noise):
     path = "M " + str(points[0].x) + " " + str(points[0].y) + " "
     for i in range(1, len(points)):
         if noise:
-            path += "L " + str(points[i].x + random.randint(-5, 5)) + " " + str(
-                points[i].y + random.randint(-5, 5)) + " "
+            path += "L " + str(points[i].x + random.randint(-2, 2)) + " " + str(
+                points[i].y + random.randint(-2, 2)) + " "
         else:
             path += "L " + str(points[i].x) + " " + str(points[i].y) + " "
     return path

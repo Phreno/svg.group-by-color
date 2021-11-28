@@ -2,7 +2,6 @@
 import argparse
 import xml.etree.ElementTree as ElementTree
 
-from geo_toolbox import plot_bezier_curve_equation
 from toolbox import extract_bezier_curve_from_path, render_stroke_from_points, GROUP_TAG_WITH_NAMESPACE, \
     ATTRIB_LABEL_WITH_NAMESPACE
 
@@ -25,8 +24,7 @@ def apply_noise_effect(node: ElementTree.Element):
     for child in node:
         path = child.attrib['d']
         curve = extract_bezier_curve_from_path(path)
-        points = plot_bezier_curve_equation(curve, 100)
-        child.attrib['d'] = render_stroke_from_points(points, noise=True)
+        child.attrib['d'] = render_stroke_from_points(curve.plot(100), noise=True)
 
 
 def next_step(node: ElementTree, group):
