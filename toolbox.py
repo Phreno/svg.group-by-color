@@ -1,9 +1,10 @@
 import random
+import re
 from xml.etree import ElementTree
 
-from color.color_toolbox import color_to_hex
-from geometry.bezier_curve import BezierCurve
-from geometry.point import Point
+from bezier_curve import BezierCurve
+from color_toolbox import color_to_hex
+from point import Point
 
 GROUP_TAG_WITH_NAMESPACE = '{http://www.w3.org/2000/svg}g'
 ATTRIB_LABEL_WITH_NAMESPACE = '{http://www.inkscape.org/namespaces/inkscape}label'
@@ -97,12 +98,9 @@ def render_stroke_from_points(points, noise):
 # Output BezierCurve(Point(16, 144), Point(73, 33), Point(144, 133))
 def extract_bezier_curve_from_path(path):
     # Extract the points
-    points = path.split(" ")
-    # Remove the first element
-    points.pop(0)
+    points = re.sub("([a-zA-Z] |,)", '', path).split()
     # Extract the points
-    p0 = Point(int(points[0].split("Q")[0].split("M")[1].split(",")[0]),
-               int(points[0].split("Q")[0].split("M")[1].split(",")[1]))
-    p1 = Point(int(points[0].split("Q")[1].split(",")[0]), int(points[0].split("Q")[1].split(",")[1]))
-    p2 = Point(int(points[1].split("Q")[1].split(",")[0]), int(points[1].split("Q")[1].split(",")[1]))
+    p0 = Point(float(points[0]), float(points[1]))
+    p1 = Point(float(points[2]), float(points[3]))
+    p2 = Point(float(points[4]), float(points[5]))
     return BezierCurve(p0, p1, p2)

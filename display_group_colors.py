@@ -2,9 +2,9 @@
 import argparse
 from xml.etree import ElementTree
 
-from color.color_toolbox import print_html_color
-from color.color_toolbox import sort_html_colors
-from primitive_toolbox import ATTRIB_LABEL, GROUP_TAG_WITH_NAMESPACE
+from color_toolbox import print_html_color
+from color_toolbox import sort_html_colors
+from toolbox import GROUP_TAG_WITH_NAMESPACE, ATTRIB_LABEL_WITH_NAMESPACE
 
 
 def print_colors(colors):
@@ -28,7 +28,7 @@ def get_colors(svg_file):
     colors = []
     for child in root:
         if child.tag == GROUP_TAG_WITH_NAMESPACE:
-            color = child.attrib[ATTRIB_LABEL]
+            color = child.attrib[ATTRIB_LABEL_WITH_NAMESPACE]
             colors.append(color)
     return colors
 
@@ -37,7 +37,7 @@ def count_colors(svg_file, color):
     tree = ElementTree.parse(svg_file)
     root = tree.getroot()
     for child in root:
-        if child.tag == GROUP_TAG_WITH_NAMESPACE and color == child.attrib[ATTRIB_LABEL]:
+        if child.tag == GROUP_TAG_WITH_NAMESPACE and color == child.attrib[ATTRIB_LABEL_WITH_NAMESPACE]:
             return len(child)
         else:
             continue

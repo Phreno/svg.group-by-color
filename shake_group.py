@@ -2,9 +2,9 @@
 import argparse
 import xml.etree.ElementTree as ElementTree
 
-from geometry.geometry_toolbox import split_curve, get_points_from_curves
-from primitive_toolbox import GROUP_TAG_WITH_NAMESPACE, extract_bezier_curve_from_path, \
-    render_stroke_from_points
+from geo_toolbox import plot_bezier_curve_equation
+from toolbox import extract_bezier_curve_from_path, render_stroke_from_points, GROUP_TAG_WITH_NAMESPACE, \
+    ATTRIB_LABEL_WITH_NAMESPACE
 
 
 def main():
@@ -24,15 +24,14 @@ def apply_filter(svg, group):
 def apply_noise_effect(node: ElementTree.Element):
     for child in node:
         path = child.attrib['d']
-    curve = extract_bezier_curve_from_path(path)
-    curves = split_curve(curve)
-    points = get_points_from_curves(curves)
-    child.attrib['d'] = render_stroke_from_points(points, noise=True)
+        curve = extract_bezier_curve_from_path(path)
+        points = plot_bezier_curve_equation(curve, 100)
+        child.attrib['d'] = render_stroke_from_points(points, noise=True)
 
 
 def next_step(node: ElementTree, group):
     for child in node:
-        if child.tag == GROUP_TAG_WITH_NAMESPACE:
+        if child.tag == GROUP_TAG_WITH_NAMESPACE and child.attrib[ATTRIB_LABEL_WITH_NAMESPACE] == group:
             apply_noise_effect(child)
             return
         else:
