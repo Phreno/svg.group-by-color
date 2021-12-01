@@ -8,15 +8,15 @@ from toolbox import extract_bezier_curve_from_path, render_stroke_from_points, G
 
 def main():
     args = parse_args()
-    root = apply_filter(args.svg, args.group)
+    root = apply_filter(args.svg, args.groups)
     tree = ElementTree.ElementTree(root)
     tree.write(args.output)
 
 
-def apply_filter(svg, group):
+def apply_filter(svg, groups):
     tree = ElementTree.parse(svg)
     root = tree.getroot()
-    next_step(root, group)
+    next_step(root, groups)
     return root
 
 
@@ -27,13 +27,19 @@ def apply_noise_effect(node: ElementTree.Element):
         child.attrib['d'] = render_stroke_from_points(curve.plot(100), noise=True)
 
 
-def next_step(node: ElementTree, group):
-    for child in node:
+def is_within_groups(groups, child):
+    for group in groups:
         if child.tag == GROUP_TAG_WITH_NAMESPACE and child.attrib[ATTRIB_LABEL_WITH_NAMESPACE] == group:
+            return True
+    return False
+
+
+def next_step(node: ElementTree, groups):
+    for child in node:
+        if is_within_groups(groups, child):
             apply_noise_effect(child)
-            return
         else:
-            next_step(child, group)
+            next_step(child, groups)
 
 
 def parse_args():
@@ -42,7 +48,7 @@ def parse_args():
     )
     parser.add_argument("svg", help="input svg file")
     parser.add_argument("output", help="output svg file")
-    parser.add_argument("group", help="group used to apply effect")
+    parser.add_argument("groups", nargs="+", help="groups used to apply effect")
     args = parser.parse_args()
     return args
 
