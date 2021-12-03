@@ -2,8 +2,9 @@
 import argparse
 import xml.etree.ElementTree as ElementTree
 
+from color_toolbox import color_to_hex
 from toolbox import extract_bezier_curve_from_path, render_stroke_from_points, GROUP_TAG_WITH_NAMESPACE, \
-    ATTRIB_LABEL_WITH_NAMESPACE
+    ATTRIB_LABEL_WITH_NAMESPACE, render_points
 
 
 def main():
@@ -20,11 +21,14 @@ def apply_filter(svg, groups):
     return root
 
 
-def apply_noise_effect(node: ElementTree.Element):
+def apply_dash_effect(node: ElementTree.Element):
+    points = []
     for child in node:
         path = child.attrib['d']
         curve = extract_bezier_curve_from_path(path)
-        child.attrib['d'] = render_stroke_from_points(curve.plot(100), 1)
+        points.extend( render_points(curve.plot(100), 1))
+        node.remove(child)
+    return points
 
 
 def is_within_groups(groups, child):
@@ -37,7 +41,16 @@ def is_within_groups(groups, child):
 def next_step(node: ElementTree, groups):
     for child in node:
         if is_within_groups(groups, child):
-            apply_noise_effect(child)
+            print(child.attrib[ATTRIB_LABEL_WITH_NAMESPACE])
+            points = apply_dash_effect(child)
+            for point in points:
+                ElementTree.SubElement(child, "ns0:path", {
+                    'd': point,
+                    'stroke': color_to_hex(child.attrib[ATTRIB_LABEL_WITH_NAMESPACE]),
+                    'stroke-width': '0.5',
+                    'stroke-opacity': '0.501961',
+                })
+
         else:
             next_step(child, groups)
 
