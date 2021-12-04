@@ -17,6 +17,7 @@ class BezierCurve:
         return [self.start, self.control, self.end]
 
     def get_points_as_tuples(self):
+        # TODO: vérifier si cette fonction est vraiment utile
         return [(self.start.x, self.start.y), (self.control.x, self.control.y), (self.end.x, self.end.y)]
 
     def plot(self, amount: int):
