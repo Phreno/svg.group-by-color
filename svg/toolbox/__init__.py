@@ -2,9 +2,9 @@ import random
 import re
 from xml.etree import ElementTree
 
-from bezier_curve import BezierCurve
-from color_toolbox import color_to_hex
-from point import Point
+from geometry.curve.bezier import BezierCurve
+from color.toolbox import color_to_hex
+from geometry.point import Point
 
 GROUP_TAG_WITH_NAMESPACE = '{http://www.w3.org/2000/svg}g'
 ATTRIB_LABEL_WITH_NAMESPACE = '{http://www.inkscape.org/namespaces/inkscape}label'

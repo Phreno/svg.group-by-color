@@ -2,8 +2,8 @@
 import argparse
 from xml.etree import ElementTree
 
-from color_toolbox import color_to_hex
-from toolbox import GROUP_TAG, save_svg_root, is_valid_attrib_on, \
+from color.toolbox import color_to_hex
+from svg.toolbox import GROUP_TAG, save_svg_root, is_valid_attrib_on, \
     ATTRIB_STROKE
 
 

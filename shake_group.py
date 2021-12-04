@@ -2,7 +2,7 @@
 import argparse
 import xml.etree.ElementTree as ElementTree
 
-from toolbox import extract_bezier_curve_from_path, render_stroke_from_points, GROUP_TAG_WITH_NAMESPACE, \
+from svg.toolbox import extract_bezier_curve_from_path, render_stroke_from_points, GROUP_TAG_WITH_NAMESPACE, \
     ATTRIB_LABEL_WITH_NAMESPACE
 
 

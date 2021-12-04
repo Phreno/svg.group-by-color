@@ -4,9 +4,9 @@ import argparse
 import xml.etree.ElementTree as ElementTree
 from collections import defaultdict
 
-from color_toolbox import color_to_hex
-from color_toolbox import hex_to_nearest_color_name, COLORS
-from toolbox import GROUP_TAG_WITH_NAMESPACE, save_svg_root, render_svg_from_color_child_dict, \
+from color.toolbox import color_to_hex
+from color.toolbox import hex_to_nearest_color_name, COLORS
+from svg.toolbox import GROUP_TAG_WITH_NAMESPACE, save_svg_root, render_svg_from_color_child_dict, \
     ATTRIB_FILL, \
     ATTRIB_STROKE, \
     is_valid_attrib_on
