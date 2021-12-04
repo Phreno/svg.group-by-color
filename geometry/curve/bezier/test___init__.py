@@ -10,19 +10,18 @@ class TestBezierCurve(TestCase):
         self.control = Point(2, 2)
         self.end = Point(3, 3)
 
-
-    def test__str__Doit_afficher_les_trois_points_de_controles(self):
+    def test__str__doit_afficher_les_trois_points_de_controles(self):
         # given a curve
-        curve = BezierCurve(self.start,self.control, self.end)
+        curve = BezierCurve(self.start, self.control, self.end)
         # when the curve is printed
         data = str(curve)
         # then it displays all the 3 points
         self.assertEqual('((1,1),(2,2),(3,3))', data)
 
-    def test__eq__Doit_retourner_True_Lorsque_les_coordonnées_sont_identiques(self):
+    def test__eq__doit_retourner_True_Lorsque_les_coordonnees_sont_identiques(self):
         # given twos curves with same points
-        a = BezierCurve(self.start,self.control,self.end)
-        b = BezierCurve(self.start,self.control,self.end)
+        a = BezierCurve(self.start, self.control, self.end)
+        b = BezierCurve(self.start, self.control, self.end)
         # when we try a comparison
         res = a == b
         # then the curves have to be equals
@@ -36,7 +35,7 @@ class TestBezierCurve(TestCase):
         # then the points keep the same order
         self.assertEqual([self.start, self.control, self.end], points)
 
-    def test_plot_Doit_retourner_un_nombre_de_points_identiques_a_la_quantité_fournie(self):
+    def test_plot_doit_retourner_un_nombre_de_points_identiques_a_la_quantite_fournie(self):
         # given a curve
         curve = BezierCurve(self.start, self.control, self.end)
         # when we plot points
