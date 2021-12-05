@@ -2,7 +2,7 @@
 import argparse
 import xml.etree.ElementTree as ElementTree
 
-from color.toolbox import color_to_hex
+from color.converter import color_to_hex
 from svg.toolbox import extract_bezier_curve_from_path, GROUP_TAG_WITH_NAMESPACE, \
     ATTRIB_LABEL_WITH_NAMESPACE, render_points
 

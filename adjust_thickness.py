@@ -2,7 +2,7 @@
 import argparse
 from xml.etree import ElementTree
 
-from color.toolbox import color_to_hex
+from color.converter import color_to_hex
 from svg.toolbox import GROUP_TAG, save_svg_root, is_valid_attrib_on, \
     ATTRIB_STROKE
 
