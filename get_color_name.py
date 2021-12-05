@@ -3,8 +3,8 @@
 import re
 import sys
 
-from color.converter import Color
-from color.converter import color_to_nearest_color_name
+from lib.color.converter import Color
+from lib.color.converter import color_to_nearest_color_name
 
 
 def main():

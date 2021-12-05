@@ -2,9 +2,9 @@
 import argparse
 from xml.etree import ElementTree
 
-from color.printer import print_html_color
-from color.sorter import sort_html_colors
-from svg import ATTRIB_LABEL_WITH_NAMESPACE, GROUP_TAG_WITH_NAMESPACE
+from lib.color.printer import print_html_color
+from lib.color.sorter import sort_html_colors
+from lib.svg import ATTRIB_LABEL_WITH_NAMESPACE, GROUP_TAG_WITH_NAMESPACE
 
 
 def print_colors(colors):

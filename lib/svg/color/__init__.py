@@ -1,6 +1,6 @@
 from xml.etree.ElementTree import ElementTree
 
-from color.converter import color_to_hex
+from lib.color.converter import color_to_hex
 from .. import create_svg_root, strip_namespace, ATTRIB_LABEL_WITH_NAMESPACE, ATTRIB_LABEL, ATTRIB_FILL, ATTRIB_STROKE, \
     is_valid_attrib_on
 

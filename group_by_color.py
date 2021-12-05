@@ -4,11 +4,11 @@ import argparse
 import xml.etree.ElementTree as ElementTree
 from collections import defaultdict
 
-from color.converter import color_to_hex
-from color.converter import hex_to_nearest_color_name, COLORS
-from svg import GROUP_TAG_WITH_NAMESPACE, is_valid_attrib_on, ATTRIB_FILL, ATTRIB_STROKE
-from svg.color import render_svg_from_color_child_dict
-from svg.file import save_svg_root
+from lib.color.converter import color_to_hex
+from lib.color.converter import hex_to_nearest_color_name, COLORS
+from lib.svg import GROUP_TAG_WITH_NAMESPACE, is_valid_attrib_on, ATTRIB_FILL, ATTRIB_STROKE
+from lib.svg.color import render_svg_from_color_child_dict
+from lib.svg.file import save_svg_root
 
 
 def get_color_dict(svg, colors):

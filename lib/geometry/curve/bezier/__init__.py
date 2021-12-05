@@ -1,4 +1,4 @@
-from geometry.point import Point
+from lib.geometry.point import Point
 
 
 class BezierCurve:

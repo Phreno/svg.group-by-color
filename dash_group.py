@@ -2,9 +2,9 @@
 import argparse
 import xml.etree.ElementTree as ElementTree
 
-from color.converter import color_to_hex
-from svg import GROUP_TAG_WITH_NAMESPACE, ATTRIB_LABEL_WITH_NAMESPACE
-from svg.geometry import extract_bezier_curve_from_path, render_points
+from lib.color.converter import color_to_hex
+from lib.svg import GROUP_TAG_WITH_NAMESPACE, ATTRIB_LABEL_WITH_NAMESPACE
+from lib.svg.geometry import extract_bezier_curve_from_path, render_points
 
 
 def main():

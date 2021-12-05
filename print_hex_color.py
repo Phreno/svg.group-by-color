@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from color.printer import print_hex_color
+from lib.color.printer import print_hex_color
 
 
 def parse_args():

@@ -2,8 +2,8 @@
 import argparse
 import xml.etree.ElementTree as ElementTree
 
-from svg import GROUP_TAG_WITH_NAMESPACE, ATTRIB_LABEL_WITH_NAMESPACE
-from svg.geometry import extract_bezier_curve_from_path, render_stroke_from_points
+from lib.svg import GROUP_TAG_WITH_NAMESPACE, ATTRIB_LABEL_WITH_NAMESPACE
+from lib.svg.geometry import extract_bezier_curve_from_path, render_stroke_from_points
 
 
 def main():

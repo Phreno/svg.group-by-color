@@ -1,10 +1,8 @@
 import random
 import re
-from xml.etree import ElementTree
 
-from geometry.curve.bezier import BezierCurve
-from color.converter import color_to_hex
-from geometry.point import Point
+from lib.geometry.curve.bezier import BezierCurve
+from lib.geometry.point import Point
 
 
 # Given an array of points, render the corresponding svg stroke path
