@@ -1,4 +1,4 @@
-from xml.etree.ElementTree import ElementTree
+from xml.etree import ElementTree
 
 GROUP_TAG_WITH_NAMESPACE = '{http://www.w3.org/2000/svg}g'
 ATTRIB_LABEL_WITH_NAMESPACE = '{http://www.inkscape.org/namespaces/inkscape}label'

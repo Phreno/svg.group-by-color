@@ -41,7 +41,6 @@ def is_within_groups(groups, child):
 def next_step(node: ElementTree, groups):
     for child in node:
         if is_within_groups(groups, child):
-            print(child.attrib[ATTRIB_LABEL_WITH_NAMESPACE])
             points = apply_dash_effect(child)
             for point in points:
                 ElementTree.SubElement(child, "ns0:path", {
