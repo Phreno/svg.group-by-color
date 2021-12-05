@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-
-from color.converter import COLORS, sort_html_colors
-from color.converter import print_html_color
+from color import COLORS
+from color.printer import print_html_color
+from color.sorter import sort_html_colors
 
 
 def parse_args():

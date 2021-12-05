@@ -3,8 +3,8 @@ import argparse
 from xml.etree import ElementTree
 
 from color.converter import color_to_hex
-from svg.toolbox import GROUP_TAG, save_svg_root, is_valid_attrib_on, \
-    ATTRIB_STROKE
+from svg import GROUP_TAG, is_valid_attrib_on, ATTRIB_STROKE
+from svg.file import save_svg_root
 
 
 def adjust_thickness(svg_file, color, thickness):

@@ -2,15 +2,15 @@
 import argparse
 from xml.etree import ElementTree
 
-from color.converter import print_html_color
-from color.converter import sort_html_colors
-from svg.toolbox import GROUP_TAG_WITH_NAMESPACE, ATTRIB_LABEL_WITH_NAMESPACE
+from color.printer import print_html_color
+from color.sorter import sort_html_colors
+from svg import ATTRIB_LABEL_WITH_NAMESPACE, GROUP_TAG_WITH_NAMESPACE
 
 
 def print_colors(colors):
     """
     Print the specified colors to stdout.
-    :param colors: the colors to print
+    param colors: the colors to print
     :return:
     """
     for color in colors:

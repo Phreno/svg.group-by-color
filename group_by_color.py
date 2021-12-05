@@ -6,10 +6,9 @@ from collections import defaultdict
 
 from color.converter import color_to_hex
 from color.converter import hex_to_nearest_color_name, COLORS
-from svg.toolbox import GROUP_TAG_WITH_NAMESPACE, save_svg_root, render_svg_from_color_child_dict, \
-    ATTRIB_FILL, \
-    ATTRIB_STROKE, \
-    is_valid_attrib_on
+from svg import GROUP_TAG_WITH_NAMESPACE, is_valid_attrib_on, ATTRIB_FILL, ATTRIB_STROKE
+from svg.color import render_svg_from_color_child_dict
+from svg.file import save_svg_root
 
 
 def get_color_dict(svg, colors):

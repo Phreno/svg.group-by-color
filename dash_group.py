@@ -3,8 +3,8 @@ import argparse
 import xml.etree.ElementTree as ElementTree
 
 from color.converter import color_to_hex
-from svg.toolbox import extract_bezier_curve_from_path, GROUP_TAG_WITH_NAMESPACE, \
-    ATTRIB_LABEL_WITH_NAMESPACE, render_points
+from svg import GROUP_TAG_WITH_NAMESPACE, ATTRIB_LABEL_WITH_NAMESPACE
+from svg.geometry import extract_bezier_curve_from_path, render_points
 
 
 def main():
@@ -26,7 +26,7 @@ def apply_dash_effect(node: ElementTree.Element):
     for child in node:
         path = child.attrib['d']
         curve = extract_bezier_curve_from_path(path)
-        points.extend( render_points(curve.plot(100), 1))
+        points.extend(render_points(curve.plot(100), 1))
         node.remove(child)
     return points
 

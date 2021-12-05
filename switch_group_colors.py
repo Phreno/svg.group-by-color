@@ -2,7 +2,9 @@
 import argparse
 from xml.etree import ElementTree
 
-from svg.toolbox import GROUP_TAG, ATTRIB_LABEL, save_svg_root, colorize_group
+from svg import GROUP_TAG, ATTRIB_LABEL
+from svg.color import colorize_group
+from svg.file import save_svg_root
 
 
 def replace_colors(svg_file, old, new):
